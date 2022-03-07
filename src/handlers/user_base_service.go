@@ -8,26 +8,23 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/gocql/gocql"
+	"github.com/laithrafid/news_fetch/src/cassandra"
 	"github.com/laithrafid/news_fetch/src/domain"
 	"github.com/laithrafid/news_fetch/src/repository"
 )
 
-type UserBaseService struct {
-	UserDbClient *repository.UserDbSession
-}
+var (
+	UsersService usersServiceInterface = &usersService{}
+)
 
-func NewUserBaseService(cassession *gocql.Session) *UserService {
-	return &UserService{
-		UserServ: &UserBaseService{
-			UserDbClient: repository.NewUserDbSession(cassession),
-		},
-	}
-}
+type usersService struct{}
 
+type usersServiceInterface interface {
+	
 // subscribed user if new user func
-func (u *UserBaseService) Subscribed(c *gin.Context) {
+func Subscribed(c *gin.Context) {
 	var respList []domain.UserDetails
-	if results, err := u.UserDbClient.GetAllUser(); err != nil {
+	if results, err := .GetAllUser(); err != nil {
 		fmt.Errorf("Error while fetching subscribers. Returning empty response")
 	} else {
 		respList = results
@@ -35,7 +32,7 @@ func (u *UserBaseService) Subscribed(c *gin.Context) {
 	c.JSON(http.StatusOK, respList)
 }
 
-func (u *UserBaseService) Subscribe(c *gin.Context) {
+func Subscribe(c *gin.Context) {
 	if body, err := ioutil.ReadAll(c.Request.Body); err != nil {
 		fmt.Printf("Error encountered : %v", err.Error())
 	} else {
@@ -55,21 +52,19 @@ func (u *UserBaseService) Subscribe(c *gin.Context) {
 	}
 }
 
-func (u *UserBaseService) CheckAndPersist(usrDet *domain.UserDetails) error {
-	if subscriber, err := u.UserDbClient.GetUserByTgDetils(int(usrDet.ID), usrDet.TelegramId); err != nil || subscriber.ID == 0 {
-		fmt.Printf("New subscriber with Id : %d and Username : %s", usrDet.ID, usrDet.TelegramId)
+func CheckAndPersist(usrDet *domain.UserDetails) error {
+	if subscriber, err := u.UserDbClient.GetUserByTgDetils(int(usrDet.ID), usrDet.Name); err != nil || subscriber.ID == 0 {
+		fmt.Printf("New subscriber with Id : %d and Username : %s", usrDet.ID, usrDet)
 		m := domain.UserDetails{
-			ID:         usrDet.ID,
-			Name:       usrDet.Name,
-			TelegramId: usrDet.TelegramId,
-			ChatId:     usrDet.ChatId,
+			ID:   usrDet.ID,
+			Name: usrDet.Name,
 		}
-		if err := u.UserDbClient.InsertUser(m); err != nil {
-			fmt.Printf("Failure while persisting subscriber with Id : %d and Username : %s - %s", subscriber.ID, subscriber.TelegramId, err.Error())
+		if err := .InsertUser(m); err != nil {
+			fmt.Printf("Failure while persisting subscriber with Id : %d and Username : %s - %s", subscriber.ID, subscriber.Name, err.Error())
 			return err
 		}
 	} else {
-		fmt.Printf("Subscriber found with Id : %d and Username : %s", subscriber.ID, subscriber.TelegramId)
+		fmt.Printf("Subscriber found with Id : %d and Username : %s", subscriber.ID, subscriber.Name)
 		return err
 	}
 	return nil
