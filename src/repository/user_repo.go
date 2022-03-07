@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/gocql/gocql"
-	"github.com/laithrafid/domain/"
+	"github.com/laithrafid/src/domain"
 )
 
 type UserRepo interface {

@@ -1,4 +1,5 @@
-module github.com/laithraifd/news_fetch/src
+module github.com/laithrafid/news_fetch/src
+
 
 go 1.17
 

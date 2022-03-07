@@ -5,8 +5,8 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/laithrafid/news_fetch/clients"
-	"github.com/laithrafid/news_fetch/repository"
+	"github.com/laithrafid/news_fetch/src/clients"
+	"github.com/laithrafid/news_fetch/src/repository"
 )
 
 type GNewsService struct {

@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/laithrafid/news_fetch/domain"
+	"github.com/laithrafid/news_fetch/src/domain"
 )
 
 func NewGNewsClient(hClient *http.Client) *GClient {

@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	"github.com/gocql/gocql"
-	"github.com/laithrafid/news_fetch/cassandra"
-	"github.com/laithrafid/news_fetch/domain"
+	"github.com/laithrafid/news_fetch/src/cassandra"
+	"github.com/laithrafid/news_fetch/src/domain"
 )
 
 type NewsRepo interface {

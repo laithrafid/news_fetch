@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/laithraifd/news_fetch/src/app"
+	"github.com/laithrafid/news_fetch/src/app"
 )
 
 func main() {

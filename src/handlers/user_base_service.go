@@ -8,8 +8,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/gocql/gocql"
-	"github.com/laithrafid/news_fetch/domain"
-	"github.com/laithrafid/news_fetch/repository"
+	"github.com/laithrafid/news_fetch/src/domain"
+	"github.com/laithrafid/news_fetch/src/repository"
 )
 
 type UserBaseService struct {
